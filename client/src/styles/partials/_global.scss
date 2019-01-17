@@ -1,0 +1,53 @@
+body {
+  font-size: 1.6rem;
+  font-family: $font;
+  background: $white;
+}
+
+.wrapper {
+  max-width: 1230px;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 1.5rem !important;
+  padding-bottom: 3rem !important;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.col {
+  flex: 0 0 25%;
+  max-width: 25%;
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.visuallyhidden:not(:focus):not(:active) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}

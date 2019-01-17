@@ -36,7 +36,7 @@ export default class Map extends Component {
                 y={el.y * 6}
                 text={el.name}
                 fontSize={20}
-                fill="MediumSlateBlue  "
+                fill="MediumSlateBlue"
               />
             ))}
           </Layer>

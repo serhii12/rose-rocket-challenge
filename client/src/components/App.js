@@ -9,14 +9,13 @@ import '../styles/App.css';
 
 export default class App extends Component {
   state = {
-    legs: [],
+    legsData: [],
   };
 
   async componentDidMount() {
     this.getLegs()
-      .then(res => this.setState({ legs: [...res] }))
+      .then(res => this.setState({ legsData: [...res] }))
       .catch(err => console.log(err));
-    // this.setState({ data: [res.express] })
   }
 
   getLegs = async () => {
@@ -31,6 +30,7 @@ export default class App extends Component {
   };
 
   render() {
+    const { legsData } = this.state;
     return (
       <div className="App">
         <Header />
@@ -38,7 +38,7 @@ export default class App extends Component {
           <div className="content">
             <DriversList />
             <InfoMenu />
-            <LegsList />
+            <LegsList legsData={legsData} />
           </div>
         </div>
         <div className="wrapper">

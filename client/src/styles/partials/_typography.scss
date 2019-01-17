@@ -1,0 +1,21 @@
+h2 {
+  font-family: $font;
+  @include fontSize(15);
+  color: $secondary-color;
+  margin: 0 0 2rem 0;
+}
+
+h3 {
+  font-family: $font;
+  @include fontSize(14);
+  color: $black;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  @include fontSize(12);
+  color: $warm-grey-three;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}

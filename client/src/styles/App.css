@@ -328,6 +328,14 @@ body {
   padding-top: 1.5rem !important;
   padding-bottom: 3rem !important; }
 
+.information {
+  right: 16px;
+  position: absolute;
+  top: 15px;
+  font-size: 10px;
+  font-size: 1rem;
+  color: #417505; }
+
 .content {
   display: flex;
   flex-wrap: wrap;
@@ -349,6 +357,23 @@ li {
   margin: 0;
   padding: 0; }
 
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  margin-bottom: 1.5rem; }
+  .card :hover {
+    background-color: #f4f4f4; }
+  .card__details {
+    flex: 1 1 auto;
+    padding: 1.25rem; }
+
 .visuallyhidden:not(:focus):not(:active) {
   position: absolute;
   width: 1px;
@@ -360,6 +385,28 @@ li {
   clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden; }
+
+h2 {
+  font-family: "Lato", sans-serif;
+  font-size: 15px;
+  font-size: 1.5rem;
+  color: #103063;
+  margin: 0 0 2rem 0; }
+
+h3 {
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  font-size: 1.4rem;
+  color: #000;
+  margin: 0; }
+
+p {
+  margin: 0;
+  font-size: 12px;
+  font-size: 1.2rem;
+  color: #787878;
+  padding-top: 5px;
+  padding-bottom: 5px; }
 
 .main-header__container {
   height: 55px;

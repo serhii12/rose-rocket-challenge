@@ -1,11 +1,14 @@
 import React from 'react';
 
-const Leg = ({ leg }) => (
+const Leg = ({ leg, hasCompleted }) => (
   <div className="legs__info card">
     <div className="legs__info__details card__details">
-      <div className="drivers__info__details__online information">
-        ☑️ completed
-      </div>
+      {hasCompleted && (
+        <div className="drivers__info__details__online information">
+          ☑️ completed
+        </div>
+      )}
+
       <div className="legs__info__details__name">
         <h3>
           <strong>{leg.legID}</strong>

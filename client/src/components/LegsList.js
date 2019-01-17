@@ -2,10 +2,12 @@ import React from 'react';
 import Leg from './Leg';
 
 const LegsList = ({ legsData }) => {
-  const renderList = legsData.map(leg => <Leg key={leg.legID} leg={leg} />);
+  const renderList = legsData.map(leg => (
+    <Leg key={leg.legID} hasCompleted={false} leg={leg} />
+  ));
 
   return (
-    <div className="legs col">
+    <div className="legs overflow col">
       <h2>Legs</h2>
       {renderList}
     </div>

@@ -10,6 +10,8 @@ import '../styles/App.css';
 export default class App extends Component {
   state = {
     legsData: [],
+    driverLocation: [],
+    currentStop: '',
   };
 
   async componentDidMount() {

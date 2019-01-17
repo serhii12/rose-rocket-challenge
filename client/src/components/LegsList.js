@@ -3,7 +3,7 @@ import Leg from './Leg';
 
 const LegsList = ({ legsData }) => {
   const renderList = legsData.map(leg => (
-    <Leg key={leg.legID} hasCompleted={false} leg={leg} />
+    <Leg key={leg.legID} hasCompleted leg={leg} />
   ));
 
   return (

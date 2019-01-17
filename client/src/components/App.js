@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Header from './Header';
 import DriversList from './DriversList';
 import InfoMenu from './InfoMenu';
@@ -10,21 +9,46 @@ import '../styles/App.css';
 export default class App extends Component {
   state = {
     legsData: [],
+    stopsData: [],
     driverLocation: [],
     currentStop: '',
   };
 
   async componentDidMount() {
-    this.getLegs()
-      .then(res => this.setState({ legsData: [...res] }))
-      .catch(err => console.log(err));
+    try {
+      const legs = this.getLegs();
+      const stops = this.getStops();
+      const data = await Promise.all([legs, stops]);
+      this.setState({
+        legsData: [...data[0]],
+        stopsData: [...data[1]],
+      });
+      console.log('Data is here');
+    } catch (error) {
+      console.log('error', error);
+    }
   }
 
   getLegs = async () => {
-    const response = await fetch('/api/legs');
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-    return body;
+    try {
+      const response = await fetch('/api/legs');
+      const body = await response.json();
+      if (response.status !== 200) throw Error(body.message);
+      return body;
+    } catch (error) {
+      console.log('error getting legs data', error);
+    }
+  };
+
+  getStops = async () => {
+    try {
+      const response = await fetch('/api/stops');
+      const body = await response.json();
+      if (response.status !== 200) throw Error(body.message);
+      return body;
+    } catch (error) {
+      console.log('error getting stops data', error);
+    }
   };
 
   handleSubmit = async e => {
@@ -32,7 +56,7 @@ export default class App extends Component {
   };
 
   render() {
-    const { legsData } = this.state;
+    const { legsData, stopsData } = this.state;
     return (
       <div className="App">
         <Header />
@@ -45,7 +69,7 @@ export default class App extends Component {
         </div>
         <div className="wrapper">
           <div className="content">
-            <Map />
+            <Map stopsData={stopsData} />
           </div>
         </div>
       </div>

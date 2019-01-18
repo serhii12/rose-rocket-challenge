@@ -14,7 +14,7 @@ export default class App extends Component {
     stopsData: [],
     driverLocation: {
       activeLegID: '',
-      legProgress: '',
+      legProgress: null,
     },
     currentStop: '',
     loading: true,
@@ -34,7 +34,7 @@ export default class App extends Component {
         stopsData: [...stopsData],
         driverLocation: {
           activeLegID,
-          legProgress,
+          legProgress: parseInt(legProgress, 10),
         },
       });
     } catch (error) {
@@ -69,8 +69,8 @@ export default class App extends Component {
         <div className="wrapper">
           <div className="content">
             <DriversList driverLocation={driverLocation} />
-            <InfoMenu driverLocation={driverLocation} />
-            <LegsList legsData={legsData} />
+            <InfoMenu driverLocation={driverLocation} legsData={legsData} />
+            <LegsList legsData={legsData} driverLocation={driverLocation} />
           </div>
         </div>
         <div className="wrapper">

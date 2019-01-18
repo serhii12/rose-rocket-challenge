@@ -6,13 +6,13 @@ const Driver = ({ driver }) => (
       <div className="drivers__info__details__online information">● online</div>
       <div className="drivers__info__details__name">
         <h3>
-          <strong>roserocket ❤️</strong>
+          <strong>driver🚚</strong>
         </h3>
       </div>
       <div className="drivers__info__details__location">
         <p>Active Leg: {driver.activeLegID}</p>
         <p>Leg Progress: {driver.legProgress}%</p>
-        <p>Coordinates: 20X 20Y</p>
+        <p>Coordinates: 20X|20Y</p>
       </div>
     </div>
   </div>

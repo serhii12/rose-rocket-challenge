@@ -24,7 +24,7 @@ router.get('/api/bonusdriver', (req, res) => {
 });
 
 router.put('/api/driver', (req, res) => {
-  console.log('driver req', req);
+  console.log('got the data to update driver req', req.body);
 });
 
 router.put('/api/bonusdriver', (req, res) => {

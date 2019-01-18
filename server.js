@@ -28,6 +28,15 @@ wss.broadcast = (data, ws) => {
   });
 };
 
+const handleMessage = messageData => {
+  // Parse the message
+  const msg = JSON.parse(messageData);
+  if (msg.type === 'postMessage') {
+  } 
+
+  wss.broadcast(msg);
+};
+
 wss.on('connection', ws => {
   console.log('Client connected');
   // ws.on('message', handleMessage);

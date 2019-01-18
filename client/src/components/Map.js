@@ -12,7 +12,7 @@ export default class Map extends Component {
     const { stopsData } = this.props;
     return (
       <section className="map">
-        <Stage width={1200} height={1200} draggable>
+        <Stage width={700} height={700} className="containerId">
           <Layer>
             <Line points={this.getData()} stroke="#000" />
           </Layer>

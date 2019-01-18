@@ -5,6 +5,7 @@ import InfoMenu from './InfoMenu';
 import LegsList from './LegsList';
 import Map from './Map';
 import '../styles/App.css';
+import { trackingAPI } from '../util/utils';
 
 const SOCKET = new WebSocket('ws://localhost:5000');
 
@@ -16,15 +17,15 @@ export default class App extends Component {
       activeLegID: '',
       legProgress: null,
     },
-    currentStop: '',
     loading: true,
   };
 
   async componentDidMount() {
+    SOCKET.onmessage = msg => {};
     try {
-      const legs = this.getDataFromApi('legs');
-      const stops = this.getDataFromApi('stops');
-      const driver = this.getDataFromApi('driver');
+      const legs = trackingAPI.getDataFromApi('legs');
+      const stops = trackingAPI.getDataFromApi('stops');
+      const driver = trackingAPI.getDataFromApi('driver');
       const data = await Promise.all([legs, stops, driver]);
       const [legsData, stopsData, driverLocation] = data;
       const { activeLegID, legProgress } = driverLocation;
@@ -42,25 +43,22 @@ export default class App extends Component {
     }
   }
 
-  getDataFromApi = async data => {
+  updateDriverLocation = async (legToUpdate, progress) => {
     try {
-      const response = await fetch(`/api/${data}`);
-      const body = await response.json();
-      if (response.status !== 200) throw Error(body.message);
-      return body;
+      trackingAPI.updateLocation(legToUpdate, progress);
     } catch (error) {
-      console.log('error getting legs data', error);
+      console.log(error);
     }
-  };
-
-  handleSubmit = async e => {
-    e.preventDefault();
+    // const newMessage = {
+    //   legToUpdate: legToUpdate,
+    //    progress: progress,
+    // };
+    // SOCKET.send(JSON.stringify(newMessage));
   };
 
   render() {
     const { legsData, stopsData, driverLocation, loading } = this.state;
     if (loading) {
-      // Wait for async data
       return null;
     }
     return (
@@ -69,12 +67,16 @@ export default class App extends Component {
         <div className="wrapper">
           <div className="content">
             <DriversList driverLocation={driverLocation} />
-            <InfoMenu driverLocation={driverLocation} legsData={legsData} />
+            <InfoMenu
+              driverLocation={driverLocation}
+              legsData={legsData}
+              updateDriverLocation={this.updateDriverLocation}
+            />
             <LegsList legsData={legsData} driverLocation={driverLocation} />
           </div>
         </div>
         <div className="wrapper">
-          <div className="content">
+          <div className="deliveryMap">
             <Map stopsData={stopsData} />
           </div>
         </div>

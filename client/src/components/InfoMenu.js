@@ -1,14 +1,46 @@
 import React, { Component } from 'react';
+import { generateRandomId } from '../util/utils';
 
 export default class InfoMenu extends Component {
-  genereteOptions = name => (
-    <option name={name} value={name}>
-      {name}
-    </option>
-  );
+  state = {
+    legToUpdate: this.props.driverLocation.activeLegID,
+    legProgress: this.props.driverLocation.legProgress,
+  };
+
+  genereteOptions = name => {
+    const {
+      driverLocation: { activeLegID },
+    } = this.props;
+    return (
+      <option
+        name={name}
+        key={generateRandomId()}
+        value={name}
+        selected={name === activeLegID}
+      >
+        {name}
+      </option>
+    );
+  };
+
+  onChangeLeg = (key, value) => {
+    this.setState({ [key]: value });
+  };
+
+  onFormSubmit = e => {
+    const { legToUpdate, legProgress } = this.state;
+    const { updateDriverLocation } = this.props;
+    e.preventDefault();
+    if (legToUpdate !== '' && legProgress !== null) {
+      updateDriverLocation(legToUpdate, legProgress);
+      return false;
+    }
+  };
 
   render() {
     const { legsData } = this.props;
+    const { legToUpdate, legProgress } = this.state;
+
     return (
       <div className="info">
         <h2>Update</h2>
@@ -16,11 +48,20 @@ export default class InfoMenu extends Component {
           <div className="info__activeLeg__wrapper">
             <form
               className="info__activeLeg__wrapper__form"
-              action=""
-              method=""
+              onSubmit={this.onFormSubmit}
             >
               <h3>Which leg would you like to update?</h3>
-              <select className="selectTime" name="timeTillReady">
+              <select
+                className="selectLeg"
+                onChange={e => {
+                  const {
+                    target: { value },
+                  } = e;
+                  this.onChangeLeg('legToUpdate', value);
+                }}
+                value={legToUpdate}
+                name="leg"
+              >
                 {legsData.map(el => this.genereteOptions(el.legID))}
               </select>
               <label className="visuallyhidden" htmlFor="legProgress">
@@ -28,13 +69,20 @@ export default class InfoMenu extends Component {
               </label>
               <input
                 type="number"
+                onChange={e => {
+                  const {
+                    target: { value },
+                  } = e;
+                  this.onChangeLeg('legProgress', value);
+                }}
+                value={legProgress}
                 id="legProgress"
                 name="legProgress"
                 min="0"
                 max="100"
-                placeholder="legProgress"
+                placeholder="Leg % progress"
               />
-              <button className="btn-checkout" type="submit">
+              <button className="btn-submit" type="submit">
                 Submit
               </button>
             </form>

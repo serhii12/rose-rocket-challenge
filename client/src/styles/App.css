@@ -449,13 +449,50 @@ p {
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px; }
+  .info__activeLeg__wrapper {
+    border: 1px solid #5170a7;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center; }
+    .info__activeLeg__wrapper__form {
+      display: flex;
+      flex-direction: column;
+      padding: 2rem; }
+      .info__activeLeg__wrapper__form input {
+        display: block;
+        margin-top: 20px; }
+      .info__activeLeg__wrapper__form select {
+        appearance: none;
+        border: 1px solid black;
+        background-image: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png);
+        background-repeat: no-repeat;
+        background-position: 95% center; }
+      .info__activeLeg__wrapper__form .btn-submit {
+        text-decoration: none;
+        padding: 10px 30px;
+        display: block;
+        width: 50%;
+        font-weight: 600;
+        text-align: center;
+        cursor: pointer;
+        align-self: center;
+        border-radius: 100px;
+        border: 1px solid #5170a7;
+        color: #5170a7;
+        transition: background-color 1s;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        transition: all .15s ease-out; }
+        .info__activeLeg__wrapper__form .btn-submit:hover {
+          background: #787878;
+          color: #fff;
+          transition: all .2s ease-in; }
 
 .map {
-  width: 100%;
-  max-width: 100%;
-  flex: 0 0 100%;
-  position: relative;
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
-  overflow: hidden; }
+  width: 100%; }
+  .map .containerId {
+    display: flex;
+    justify-content: center;
+    align-items: center; }

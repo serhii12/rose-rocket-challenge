@@ -6,32 +6,45 @@ import LegsList from './LegsList';
 import Map from './Map';
 import '../styles/App.css';
 
+const SOCKET = new WebSocket('ws://localhost:5000');
+
 export default class App extends Component {
   state = {
     legsData: [],
     stopsData: [],
-    driverLocation: [],
+    driverLocation: {
+      activeLegID: '',
+      legProgress: '',
+    },
     currentStop: '',
+    loading: true,
   };
 
   async componentDidMount() {
     try {
-      const legs = this.getLegs();
-      const stops = this.getStops();
-      const data = await Promise.all([legs, stops]);
+      const legs = this.getDataFromApi('legs');
+      const stops = this.getDataFromApi('stops');
+      const driver = this.getDataFromApi('driver');
+      const data = await Promise.all([legs, stops, driver]);
+      const [legsData, stopsData, driverLocation] = data;
+      const { activeLegID, legProgress } = driverLocation;
       this.setState({
-        legsData: [...data[0]],
-        stopsData: [...data[1]],
+        loading: false,
+        legsData: [...legsData],
+        stopsData: [...stopsData],
+        driverLocation: {
+          activeLegID,
+          legProgress,
+        },
       });
-      console.log('Data is here');
     } catch (error) {
       console.log('error', error);
     }
   }
 
-  getLegs = async () => {
+  getDataFromApi = async data => {
     try {
-      const response = await fetch('/api/legs');
+      const response = await fetch(`/api/${data}`);
       const body = await response.json();
       if (response.status !== 200) throw Error(body.message);
       return body;
@@ -40,30 +53,23 @@ export default class App extends Component {
     }
   };
 
-  getStops = async () => {
-    try {
-      const response = await fetch('/api/stops');
-      const body = await response.json();
-      if (response.status !== 200) throw Error(body.message);
-      return body;
-    } catch (error) {
-      console.log('error getting stops data', error);
-    }
-  };
-
   handleSubmit = async e => {
     e.preventDefault();
   };
 
   render() {
-    const { legsData, stopsData } = this.state;
+    const { legsData, stopsData, driverLocation, loading } = this.state;
+    if (loading) {
+      // Wait for async data
+      return null;
+    }
     return (
       <div className="App">
         <Header />
         <div className="wrapper">
           <div className="content">
-            <DriversList />
-            <InfoMenu />
+            <DriversList driverLocation={driverLocation} />
+            <InfoMenu driverLocation={driverLocation} />
             <LegsList legsData={legsData} />
           </div>
         </div>

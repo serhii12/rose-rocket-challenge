@@ -336,66 +336,25 @@ body {
     transform: rotate(360deg); } }
 
 .wrapper {
-  max-width: 1230px;
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-  padding-top: 1.5rem !important;
-  padding-bottom: 3rem !important; }
+  display: grid;
+  grid-template-columns: 300px 400px 200px 1fr;
+  grid-template-areas: "driver info legs map"; }
+  .wrapper > * {
+    border-right: 2px solid #c8d0e6; }
 
-.information {
-  right: 16px;
-  position: absolute;
-  top: 15px;
-  font-size: 10px;
-  font-size: 1rem;
-  color: #417505; }
-
-.content {
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
-  border-bottom: 2px solid #103063;
-  height: 50vh; }
-
-.overflow {
-  background-color: #d9dfee;
-  overflow-y: scroll; }
-
-.col {
-  flex: 0 0 25%;
-  max-width: 25%;
-  position: relative;
-  width: 100%;
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px; }
+.card {
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  margin-bottom: 1.5rem; }
+  .card :hover {
+    background-color: #ebeef6; }
 
 ul,
 li {
   list-style: none;
   margin: 0;
   padding: 0; }
-
-.card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
-  margin-bottom: 1.5rem; }
-  .card :hover {
-    background-color: #f4f4f4; }
-  .card__details {
-    flex: 1 1 auto;
-    padding: 1.25rem; }
 
 .visuallyhidden:not(:focus):not(:active) {
   position: absolute;
@@ -441,58 +400,31 @@ p {
     color: #fff;
     padding: 10px; }
 
+.drivers {
+  grid-area: driver;
+  padding: 20px; }
+  .drivers__info__details {
+    padding: 6px; }
+
+.legs {
+  grid-area: legs;
+  padding: 20px; }
+  .legs__info__details {
+    padding: 6px; }
+    .legs__info__details__isCompleted {
+      color: #417505;
+      font-size: 1rem; }
+    .legs__info__details__isCurrent {
+      color: #5170a7;
+      font-size: 1rem; }
+
 .info {
-  width: 100%;
-  max-width: 50%;
-  flex: 0 0 50%;
-  position: relative;
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px; }
-  .info__activeLeg__wrapper {
-    border: 1px solid #5170a7;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: center; }
-    .info__activeLeg__wrapper__form {
-      display: flex;
-      flex-direction: column;
-      padding: 2rem; }
-      .info__activeLeg__wrapper__form input {
-        display: block;
-        margin-top: 20px; }
-      .info__activeLeg__wrapper__form select {
-        appearance: none;
-        border: 1px solid black;
-        background-image: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png);
-        background-repeat: no-repeat;
-        background-position: 95% center; }
-      .info__activeLeg__wrapper__form .btn-submit {
-        text-decoration: none;
-        padding: 10px 30px;
-        display: block;
-        width: 50%;
-        font-weight: 600;
-        text-align: center;
-        cursor: pointer;
-        align-self: center;
-        border-radius: 100px;
-        border: 1px solid #5170a7;
-        color: #5170a7;
-        transition: background-color 1s;
-        margin-top: 1rem;
-        margin-bottom: 2rem;
-        transition: all .15s ease-out; }
-        .info__activeLeg__wrapper__form .btn-submit:hover {
-          background: #787878;
-          color: #fff;
-          transition: all .2s ease-in; }
+  grid-area: info;
+  padding: 20px; }
 
 .map {
-  width: 100%; }
+  grid-area: map;
+  overflow: scroll; }
   .map .containerId {
-    display: flex;
-    justify-content: center;
-    align-items: center; }
+    padding-left: 150px;
+    padding-top: 50px; }

@@ -31,7 +31,7 @@ export const trackingAPI = {
           'Content-Type': 'application/json',
         },
       })
-        .then(res => res)
+        .then(res => console.log('result from api', res))
         .catch(err => err);
     } catch (error) {
       console.log('ERROR PUT', error);

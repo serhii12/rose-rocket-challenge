@@ -1,0 +1,15 @@
+.legs { 
+  grid-area: legs;
+  padding: 20px; 
+  &__info__details {
+    padding: 6px;
+    &__isCompleted {
+      color: $dark-grass-green;
+      font-size: 1rem;
+    }
+    &__isCurrent{
+      color: $blue;
+      font-size: 1rem;
+    }
+  }
+}

@@ -1,55 +1,57 @@
 .info {
-  width: 100%;
-  max-width: 50%;
-  flex: 0 0 50%;
-  position: relative;
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
-  &__activeLeg__wrapper {
-    border: 1px solid $blue;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
-    &__form {
-      display: flex;
-      flex-direction: column;
-      padding: 2rem;
-      input {
-        display: block;
-        margin-top: 20px;
-      }
-      select {
-        appearance: none;
-        border: 1px solid black;
-        background-image: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png);
-        background-repeat: no-repeat;
-        background-position: 95% center;
-      }
-      .btn-submit {
-        text-decoration: none;
-        padding: 10px 30px;
-        display: block;
-        width: 50%;
-        font-weight: 600;
-        text-align: center;
-        cursor: pointer;
-        align-self: center;
-        border-radius: 100px;
-        border: 1px solid $blue;
-        color: $blue;
-        transition: background-color 1s;
-        margin-top: 1rem;
-        margin-bottom: 2rem;
-        transition: all .15s ease-out;
-          &:hover {
-            background: $warm-grey-three;
-            color: #fff;
-            transition: all .2s ease-in;
-          }
-      }
-    }
-  }
+  grid-area: info; 
+  padding: 20px;
+  // width: 100%;
+  // max-width: 50%;
+  // flex: 0 0 50%;
+  // position: relative;
+  // min-height: 1px;
+  // padding-right: 15px;
+  // padding-left: 15px;
+  // &__activeLeg__wrapper {
+  //   border: 1px solid $blue;
+  //   padding: 50px;
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: space-between;
+  //   text-align: center;
+  //   &__form {
+  //     display: flex;
+  //     flex-direction: column;
+  //     padding: 2rem;
+  //     input {
+  //       display: block;
+  //       margin-top: 20px;
+  //     }
+  //     select {
+  //       appearance: none;
+  //       border: 1px solid black;
+  //       background-image: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png);
+  //       background-repeat: no-repeat;
+  //       background-position: 95% center;
+  //     }
+  //     .btn-submit {
+  //       text-decoration: none;
+  //       padding: 10px 30px;
+  //       display: block;
+  //       width: 50%;
+  //       font-weight: 600;
+  //       text-align: center;
+  //       cursor: pointer;
+  //       align-self: center;
+  //       border-radius: 100px;
+  //       border: 1px solid $blue;
+  //       color: $blue;
+  //       transition: background-color 1s;
+  //       margin-top: 1rem;
+  //       margin-bottom: 2rem;
+  //       transition: all .15s ease-out;
+  //         &:hover {
+  //           background: $warm-grey-three;
+  //           color: #fff;
+  //           transition: all .2s ease-in;
+  //         }
+  //     }
+  //   }
+  // }
 }

@@ -26,75 +26,31 @@ body {
 }
 
 .wrapper {
-  max-width: 1230px;
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-  padding-top: 1.5rem !important;
-  padding-bottom: 3rem !important;
+  display: grid;
+  grid-template-columns: 300px 400px 200px 1fr;
+  grid-template-areas: "driver info legs map";
+  & > * {
+    border-right: 2px solid lighten($hover-blue, 20%);
+
+  }
 }
 
-.information {
-  right: 16px;
-  position: absolute;
-  top: 15px;
-  @include fontSize(10);
-  color: $dark-grass-green;
+.card {
+  background-color: $white;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  margin-bottom: 1.5rem;
+  :hover {
+    background-color: lighten($hover-blue, 30%);
+  }
 }
 
-.content {
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
-  border-bottom: 2px solid $secondary-color;
-  height: 50vh;
-}
-
-.overflow {
-  background-color: lighten($hover-blue,25%);
-  overflow-y: scroll;
-}
-
-
-.col {
-  flex: 0 0 25%;
-  max-width: 25%;
-  position: relative;
-  width: 100%;
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
-}
 
 ul,
 li {
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-.card { 
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: $white;
-  background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
-  margin-bottom: 1.5rem;
-  :hover {
-    background-color: $light-color;
-  }
-
-  &__details {
-    flex: 1 1 auto;
-    padding: 1.25rem;
-  }
 }
 
 .visuallyhidden:not(:focus):not(:active) {

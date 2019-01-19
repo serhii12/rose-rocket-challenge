@@ -1,2 +1,7 @@
-
-
+.drivers {
+  grid-area: driver; 
+  padding: 20px;
+  &__info__details {
+    padding: 6px;
+  }
+}

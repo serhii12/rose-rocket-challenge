@@ -1,16 +1,18 @@
 import React from 'react';
 
-const Leg = ({ leg, driverLocation }) => {
-  const hasCompleted = driverLocation.activeLegID === leg.legID &&
-    driverLocation.legProgress === 100 && (
-      <div className="drivers__info__details__online information">
-        ☑️ completed
-      </div>
-    );
+const LegListItem = ({ leg, completed, current }) => {
+  const isCompleted = (
+    <div className="legs__info__details__isCompleted ">☑️Completed</div>
+  );
+  const isCurrent = (
+    <div className="legs__info__details__isCurrent ">🙋Current</div>
+  );
+
   return (
     <div className="legs__info card">
-      <div className="legs__info__details card__details">
-        {hasCompleted}
+      <div className="legs__info__details">
+        {completed && isCompleted}
+        {current && isCurrent}
         <div className="legs__info__details__name">
           <h3>
             <strong>{leg.legID}</strong>
@@ -26,4 +28,4 @@ const Leg = ({ leg, driverLocation }) => {
   );
 };
 
-export default Leg;
+export default LegListItem;

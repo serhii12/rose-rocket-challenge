@@ -1,27 +1,17 @@
 import React, { Component } from 'react';
-import { generateRandomId } from '../util/utils';
+import { generateRandomId } from '../../util/utils';
 
-export default class InfoMenu extends Component {
+export default class Controls extends Component {
   state = {
-    legToUpdate: this.props.driverLocation.activeLegID,
-    legProgress: this.props.driverLocation.legProgress,
+    legToUpdate: '',
+    legProgress: null,
   };
 
-  genereteOptions = name => {
-    const {
-      driverLocation: { activeLegID },
-    } = this.props;
-    return (
-      <option
-        name={name}
-        key={generateRandomId()}
-        value={name}
-        selected={name === activeLegID}
-      >
-        {name}
-      </option>
-    );
-  };
+  generateOptions = name => (
+    <option name={name} key={generateRandomId()} value={name}>
+      {name}
+    </option>
+  );
 
   onChangeLeg = (key, value) => {
     this.setState({ [key]: value });
@@ -44,7 +34,7 @@ export default class InfoMenu extends Component {
     return (
       <div className="info">
         <h2>Update</h2>
-        <div className="info__activeLeg card">
+        <div className="info__activeLeg">
           <div className="info__activeLeg__wrapper">
             <form
               className="info__activeLeg__wrapper__form"
@@ -62,7 +52,7 @@ export default class InfoMenu extends Component {
                 value={legToUpdate}
                 name="leg"
               >
-                {legsData.map(el => this.genereteOptions(el.legID))}
+                {legsData.map(el => this.generateOptions(el.legID))}
               </select>
               <label className="visuallyhidden" htmlFor="legProgress">
                 legProgress

@@ -1,8 +1,8 @@
 .map {
-  width: 100%;
+  grid-area: map;
+  overflow: scroll;
   .containerId {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding-left: 150px;
+    padding-top: 50px;
   }
 }

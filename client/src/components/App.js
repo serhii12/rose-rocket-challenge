@@ -1,46 +1,28 @@
 import React, { Component } from 'react';
-import Header from './Header';
-import DriversList from './DriversList';
-import InfoMenu from './InfoMenu';
-import LegsList from './LegsList';
-import Map from './Map';
+import Header from './Reusable/Header';
+import DriverListPresenter from './Driver/DriverListPresenter';
+import Controls from './ControlMenu/Controls.js';
+import LegListPresenter from './Legs/LegListPresenter';
+import MapItem from './Map/MapItem';
 import '../styles/App.css';
+import { StoreContext } from './StoreContext/StoreProvider';
+
 import { trackingAPI } from '../util/utils';
 
 const SOCKET = new WebSocket('ws://localhost:5000');
 
 export default class App extends Component {
   state = {
-    legsData: [],
-    stopsData: [],
-    driverLocation: {
-      activeLegID: '',
-      legProgress: null,
-    },
     loading: true,
   };
 
-  async componentDidMount() {
-    SOCKET.onmessage = msg => {};
-    try {
-      const legs = trackingAPI.getDataFromApi('legs');
-      const stops = trackingAPI.getDataFromApi('stops');
-      const driver = trackingAPI.getDataFromApi('driver');
-      const data = await Promise.all([legs, stops, driver]);
-      const [legsData, stopsData, driverLocation] = data;
-      const { activeLegID, legProgress } = driverLocation;
-      this.setState({
-        loading: false,
-        legsData: [...legsData],
-        stopsData: [...stopsData],
-        driverLocation: {
-          activeLegID,
-          legProgress: parseInt(legProgress, 10),
-        },
-      });
-    } catch (error) {
-      console.log('error', error);
-    }
+  componentDidMount() {
+    SOCKET.onmessage = msg => {
+      console.log('MSG', JSON.parse(msg.data));
+    };
+    this.setState({
+      loading: false,
+    });
   }
 
   updateDriverLocation = async (legToUpdate, progress) => {
@@ -49,38 +31,44 @@ export default class App extends Component {
     } catch (error) {
       console.log(error);
     }
-    // const newMessage = {
-    //   legToUpdate: legToUpdate,
-    //    progress: progress,
-    // };
-    // SOCKET.send(JSON.stringify(newMessage));
   };
 
   render() {
-    const { legsData, stopsData, driverLocation, loading } = this.state;
+    const { loading } = this.state;
+
     if (loading) {
       return null;
     }
     return (
-      <div className="App">
+      <>
         <Header />
-        <div className="wrapper">
-          <div className="content">
-            <DriversList driverLocation={driverLocation} />
-            <InfoMenu
-              driverLocation={driverLocation}
-              legsData={legsData}
-              updateDriverLocation={this.updateDriverLocation}
-            />
-            <LegsList legsData={legsData} driverLocation={driverLocation} />
-          </div>
-        </div>
-        <div className="wrapper">
-          <div className="deliveryMap">
-            <Map stopsData={stopsData} />
-          </div>
-        </div>
-      </div>
+        <main className="wrapper">
+          <StoreContext.Consumer>
+            {({ driverLocation }) => (
+              <DriverListPresenter
+                driverLocation={driverLocation}
+                updateDriverLocation={this.updateDriverLocation}
+              />
+            )}
+          </StoreContext.Consumer>
+          <StoreContext.Consumer>
+            {({ legsData }) => <Controls legsData={legsData} />}
+          </StoreContext.Consumer>
+          <StoreContext.Consumer>
+            {({ legsData, driverLocation }) => (
+              <LegListPresenter
+                driverLocation={driverLocation}
+                legsData={legsData}
+              />
+            )}
+          </StoreContext.Consumer>
+          <StoreContext.Consumer>
+            {({ stopsData, driverLocation }) => (
+              <MapItem driverLocation={driverLocation} stopsData={stopsData} />
+            )}
+          </StoreContext.Consumer>
+        </main>
+      </>
     );
   }
 }

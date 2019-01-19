@@ -1,13 +1,10 @@
 import React from 'react';
 
-const Driver = ({ driver }) => (
+const DriverListItem = ({ driver }) => (
   <div className="drivers__info card">
-    <div className="drivers__info__details card__details">
-      <div className="drivers__info__details__online information">● online</div>
+    <div className="drivers__info__details">
       <div className="drivers__info__details__name">
-        <h3>
-          <strong>driver🚚</strong>
-        </h3>
+        <h3>driver🚚</h3>
       </div>
       <div className="drivers__info__details__location">
         <p>Active Leg: {driver.activeLegID}</p>
@@ -17,4 +14,4 @@ const Driver = ({ driver }) => (
     </div>
   </div>
 );
-export default Driver;
+export default DriverListItem;

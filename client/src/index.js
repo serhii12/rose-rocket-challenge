@@ -3,8 +3,19 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 // import ErrorBoundry from './components/ErrorBoundry';
 import * as serviceWorker from './serviceWorker';
+import {
+  StoreProvider,
+  StoreContext,
+} from './components/StoreContext/StoreProvider';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <StoreProvider>
+    <StoreContext.Consumer>
+      {({ legsData }) => <App legsData={legsData} />}
+    </StoreContext.Consumer>
+  </StoreProvider>,
+  document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -18,8 +18,12 @@ router.get('/bonusdriver', (req, res) => {
   res.json(bonusDriver);
 });
 router.put('/driver', (req, res) => {
-  // Check the data
   const {legToUpdate, progress} = req.body;
+  const check = legs.find(el => el.legID === legToUpdate);
+  if (!legToUpdate || !progress || !check) {
+    res.status(400).json({ error: 'invalid request: no data in PUT body or invalid data format' });
+    return;
+  }
   driver.activeLegID = legToUpdate;
   driver.legProgress = progress;
   const wss = req.app.get('wss')
@@ -27,7 +31,16 @@ router.put('/driver', (req, res) => {
   res.json(driver);
 });
 router.put('/bonusdriver', (req, res) => {
-  console.log('bonusdriver req', req);
+  const {x, y} = req.body;
+  if (!x || !y) {
+    res.status(400).json({ error: 'invalid request: no data in PUT body or invalid data format' });
+    return;
+  }
+  bonusDriver.x = x;
+  bonusDriver.y = y;
+  const wss = req.app.get('wss')
+  wss.broadcast(bonusDriver);
+  res.json(bonusDriver);
 });
 
 module.exports = router;

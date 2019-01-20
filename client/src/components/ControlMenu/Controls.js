@@ -5,6 +5,8 @@ export default class Controls extends Component {
   state = {
     legToUpdate: '',
     legProgress: null,
+    x: null,
+    y: null,
   };
 
   componentDidUpdate() {
@@ -26,19 +28,17 @@ export default class Controls extends Component {
     this.setState({ [key]: value });
   };
 
-  onFormSubmit = e => {
-    const { legToUpdate, legProgress } = this.state;
-    const { updateDriverLocation } = this.props;
+  onFormSubmit = (e, paramOne, paramTwo, cl) => {
     e.preventDefault();
-    if (legToUpdate !== '' && legProgress !== null) {
-      updateDriverLocation(legToUpdate, legProgress);
+    if (paramOne !== '' && paramTwo !== null) {
+      cl(paramOne, paramTwo);
       return false;
     }
   };
 
   render() {
-    const { legsData } = this.props;
-    const { legToUpdate, legProgress } = this.state;
+    const { legsData, updateDriverLocation, updateBonusDriver } = this.props;
+    const { legToUpdate, legProgress, x, y } = this.state;
 
     return (
       <div className="info">
@@ -47,7 +47,14 @@ export default class Controls extends Component {
           <div className="info__activeLeg__wrapper">
             <form
               className="info__activeLeg__wrapper__form"
-              onSubmit={this.onFormSubmit}
+              onSubmit={e =>
+                this.onFormSubmit(
+                  e,
+                  legToUpdate,
+                  legProgress,
+                  updateDriverLocation
+                )
+              }
             >
               <h3>Which leg would you like to update?</h3>
               <select
@@ -80,6 +87,53 @@ export default class Controls extends Component {
                 min="0"
                 max="100"
                 placeholder="Leg % progress"
+              />
+              <button className="btn-submit" type="submit">
+                Submit
+              </button>
+            </form>
+          </div>
+          <div className="info__activeLeg__wrapper">
+            <form
+              className="info__activeLeg__wrapper__form"
+              onSubmit={e => this.onFormSubmit(e, x, y, updateBonusDriver)}
+            >
+              <h3>Coordinates of the bonus driver</h3>
+              <label className="visuallyhidden" htmlFor="CoordinatesX">
+                legProgress
+              </label>
+              <input
+                type="number"
+                onChange={e => {
+                  const {
+                    target: { value },
+                  } = e;
+                  this.onChangeLeg('x', value);
+                }}
+                value={x || ''}
+                id="CoordinatesX"
+                name="CoordinatesX"
+                min="0"
+                max="200"
+                placeholder="X Coordinates"
+              />
+              <label className="visuallyhidden" htmlFor="CoordinatesY">
+                legProgress
+              </label>
+              <input
+                type="number"
+                onChange={e => {
+                  const {
+                    target: { value },
+                  } = e;
+                  this.onChangeLeg('y', value);
+                }}
+                value={y || ''}
+                id="CoordinatesY"
+                name="CoordinatesY"
+                min="0"
+                max="200"
+                placeholder="Y Coordinates"
               />
               <button className="btn-submit" type="submit">
                 Submit

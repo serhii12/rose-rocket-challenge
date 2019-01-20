@@ -3,7 +3,7 @@ import { Stage, Line, Circle, Layer, Text } from 'react-konva';
 import { getDriverPosition } from '../../util/utils';
 
 const OFF_SET = 6;
-export default class Map extends Component {
+export default class MapItem extends Component {
   getData = () => {
     const { stopsData } = this.props;
     const newData = stopsData.map(el => [el.x * OFF_SET, el.y * OFF_SET]);
@@ -12,6 +12,7 @@ export default class Map extends Component {
 
   showCompletedLegs = () => {
     const { stopsData, driverLocation } = this.props;
+
     const data = this.getData();
     const driverIsHere = getDriverPosition(stopsData, driverLocation);
     const result = data.filter(
@@ -25,9 +26,9 @@ export default class Map extends Component {
   };
 
   render() {
-    const { stopsData, driverLocation } = this.props;
+    const { stopsData, driverLocation, bonusDriverLocation } = this.props;
     if (driverLocation.activeLegID === '' || stopsData.length === 0) {
-      return null;
+      return <h4>Loading Drivers Data...</h4>;
     }
     return (
       <section className="map">
@@ -74,6 +75,23 @@ export default class Map extends Component {
               x={getDriverPosition(stopsData, driverLocation)[0]}
               y={getDriverPosition(stopsData, driverLocation)[1]}
               fill="purple"
+              radius={7}
+              strokeWidth={3}
+            />
+          </Layer>
+          {/* Bonus Driver */}
+          <Layer>
+            <Text
+              x={bonusDriverLocation.x * OFF_SET}
+              y={bonusDriverLocation.y * OFF_SET}
+              text="Bonus Driver"
+              fontSize={20}
+              fill="black"
+            />
+            <Circle
+              x={bonusDriverLocation.x * OFF_SET}
+              y={bonusDriverLocation.y * OFF_SET}
+              fill="orange"
               radius={7}
               strokeWidth={3}
             />

@@ -42,6 +42,7 @@ body {
   margin-bottom: 1.5rem;
   :hover {
     background-color: lighten($hover-blue, 30%);
+    cursor: pointer;
   }
 }
 

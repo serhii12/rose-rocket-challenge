@@ -44,7 +44,22 @@ export const trackingAPI = {
           'Content-Type': 'application/json',
         },
       })
-        .then(res => console.log('result from api', res))
+        .then(res => res)
+        .catch(err => err);
+    } catch (error) {
+      console.log('ERROR PUT', error);
+    }
+  },
+  updateBonusDriverLocation: async (x, y) => {
+    try {
+      return await fetch('/api/bonusdriver', {
+        method: 'PUT',
+        body: JSON.stringify({ x, y }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(res => res)
         .catch(err => err);
     } catch (error) {
       console.log('ERROR PUT', error);

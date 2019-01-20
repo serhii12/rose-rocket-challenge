@@ -86,6 +86,14 @@ export class StoreProvider extends Component {
     }
   };
 
+  updateBonusDriver = async (x, y) => {
+    try {
+      trackingAPI.updateBonusDriverLocation(x, y);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   render() {
     const { children } = this.props;
     return (
@@ -97,6 +105,7 @@ export class StoreProvider extends Component {
           fetchDriverLocation: this.fetchDriverLocation,
           updateDriverLocation: this.updateDriverLocation,
           fetchBonusDriverLocation: this.fetchBonusDriverLocation,
+          updateBonusDriver: this.updateBonusDriver,
         }}
       >
         {children}

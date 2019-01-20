@@ -11,25 +11,15 @@ import { StoreContext } from './StoreContext/StoreProvider';
 const SOCKET = new WebSocket('ws://localhost:5000');
 
 export default class App extends Component {
-  state = {
-    loading: true,
-  };
-
   componentDidMount() {
     SOCKET.onmessage = () => {
-      const { fetchDriverLocation } = this.props;
+      const { fetchDriverLocation, fetchBonusDriverLocation } = this.props;
       fetchDriverLocation();
+      fetchBonusDriverLocation();
     };
-    this.setState({
-      loading: false,
-    });
   }
 
   render() {
-    const { loading } = this.state;
-    if (loading) {
-      return null;
-    }
     return (
       <>
         <Header />
@@ -40,6 +30,8 @@ export default class App extends Component {
               stopsData,
               legsData,
               updateDriverLocation,
+              bonusDriverLocation,
+              updateBonusDriver,
             }) => (
               <>
                 <DriverListPresenter
@@ -48,13 +40,16 @@ export default class App extends Component {
                 />
                 <Controls
                   updateDriverLocation={updateDriverLocation}
+                  updateBonusDriver={updateBonusDriver}
                   legsData={legsData}
+                  driverLocation={driverLocation}
                 />
                 <LegListPresenter
                   driverLocation={driverLocation}
                   legsData={legsData}
                 />
                 <MapItem
+                  bonusDriverLocation={bonusDriverLocation}
                   stopsData={stopsData}
                   driverLocation={driverLocation}
                 />
@@ -69,4 +64,5 @@ export default class App extends Component {
 
 App.propTypes = {
   fetchDriverLocation: PropTypes.func.isRequired,
+  fetchBonusDriverLocation: PropTypes.func.isRequired,
 };

@@ -15,18 +15,10 @@ const DriverListPresenter = ({ driverLocation, stopsData }) => {
       key={generateRandomId()}
     />
   );
-  const renderBonusDriver = (
-    <DriverListItem
-      driver={driverLocation}
-      cord={getDriverPosition(stopsData, driverLocation)}
-      key={generateRandomId()}
-    />
-  );
   return (
     <section className="drivers">
-      <h2>Drivers</h2>
+      <h2>Main Driver</h2>
       {renderDriver}
-      {renderBonusDriver}
     </section>
   );
 };

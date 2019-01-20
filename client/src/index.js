@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-// import ErrorBoundry from './components/ErrorBoundry';
+import ErrorBoundry from './components/ErrorBoundry';
 import * as serviceWorker from './serviceWorker';
 import {
   StoreProvider,
@@ -9,13 +9,18 @@ import {
 } from './components/StoreContext/StoreProvider';
 
 ReactDOM.render(
-  <StoreProvider>
-    <StoreContext.Consumer>
-      {({ fetchDriverLocation }) => (
-        <App fetchDriverLocation={fetchDriverLocation} />
-      )}
-    </StoreContext.Consumer>
-  </StoreProvider>,
+  <ErrorBoundry>
+    <StoreProvider>
+      <StoreContext.Consumer>
+        {({ fetchDriverLocation, fetchBonusDriverLocation }) => (
+          <App
+            fetchDriverLocation={fetchDriverLocation}
+            fetchBonusDriverLocation={fetchBonusDriverLocation}
+          />
+        )}
+      </StoreContext.Consumer>
+    </StoreProvider>
+  </ErrorBoundry>,
   document.getElementById('root')
 );
 

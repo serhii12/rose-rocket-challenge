@@ -7,8 +7,6 @@ import MapItem from './Map/MapItem';
 import '../styles/App.css';
 import { StoreContext } from './StoreContext/StoreProvider';
 
-import { trackingAPI } from '../util/utils';
-
 const SOCKET = new WebSocket('ws://localhost:5000');
 
 export default class App extends Component {
@@ -24,14 +22,6 @@ export default class App extends Component {
       loading: false,
     });
   }
-
-  updateDriverLocation = async (legToUpdate, progress) => {
-    try {
-      trackingAPI.updateLocation(legToUpdate, progress);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   render() {
     const { loading } = this.state;
@@ -51,9 +41,9 @@ export default class App extends Component {
             )}
           </StoreContext.Consumer>
           <StoreContext.Consumer>
-            {({ legsData }) => (
+            {({ legsData, updateDriverLocation }) => (
               <Controls
-                updateDriverLocation={this.updateDriverLocation}
+                updateDriverLocation={updateDriverLocation}
                 legsData={legsData}
               />
             )}

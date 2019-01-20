@@ -20,28 +20,48 @@ export class StoreProvider extends Component {
   }
 
   fetchLegs = async () => {
-    const legsData = await trackingAPI.getDataFromApi('legs');
-    this.setState({
-      legsData,
-    });
+    try {
+      const legsData = await trackingAPI.getDataFromApi('legs');
+      this.setState({
+        legsData,
+      });
+    } catch (error) {
+      console.log('error legsData', error);
+    }
   };
 
   fetchStops = async () => {
-    const stopsData = await trackingAPI.getDataFromApi('stops');
-    this.setState({
-      stopsData,
-    });
+    try {
+      const stopsData = await trackingAPI.getDataFromApi('stops');
+      this.setState({
+        stopsData,
+      });
+    } catch (error) {
+      console.log('error fetchStops', error);
+    }
   };
 
   fetchDriverLocation = async () => {
-    const driverLocation = await trackingAPI.getDataFromApi('driver');
-    const { activeLegID, legProgress } = driverLocation;
-    this.setState({
-      driverLocation: {
-        activeLegID,
-        legProgress: parseInt(legProgress, 10),
-      },
-    });
+    try {
+      const driverLocation = await trackingAPI.getDataFromApi('driver');
+      const { activeLegID, legProgress } = driverLocation;
+      this.setState({
+        driverLocation: {
+          activeLegID,
+          legProgress: parseInt(legProgress, 10),
+        },
+      });
+    } catch (error) {
+      console.log('error fetchDriverLocation', error);
+    }
+  };
+
+  updateDriverLocation = async (legToUpdate, progress) => {
+    try {
+      trackingAPI.updateLocation(legToUpdate, progress);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   render() {
@@ -53,6 +73,7 @@ export class StoreProvider extends Component {
           fetchLegs: this.fetchLegs,
           fetchStops: this.fetchStops,
           fetchDriverLocation: this.fetchDriverLocation,
+          updateDriverLocation: this.updateDriverLocation,
         }}
       >
         {children}

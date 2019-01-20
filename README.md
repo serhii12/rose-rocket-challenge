@@ -1,10 +1,8 @@
 # Rose Rocket Challenge
 
-- ABOUT
-
 ## Getting Started
 
-1. Run: `npm i`
+1. CD into server run `npm i`
 2. Run: `npm run client-install`
-3. Run the server: `npm run dev`
+3. Run the server and client: `npm run dev`
 4. Enjoy!

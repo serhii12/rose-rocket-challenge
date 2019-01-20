@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Stage, Line, Circle, Layer, Text } from 'react-konva';
+import { getDriverPosition } from '../../util/utils';
 
 export default class Map extends Component {
   getData = () => {
@@ -8,59 +9,34 @@ export default class Map extends Component {
     return [].concat(...newData);
   };
 
-  getStopsInfo = (stopsData, driverLocation) => {
-    const { activeLegID, legProgress } = driverLocation;
-    const percent = legProgress / 100;
-    const result = stopsData.filter(
-      el => el.name === activeLegID[0] || el.name === activeLegID[1]
+  showCompletedLegs = () => {
+    const { stopsData, driverLocation } = this.props;
+    const data = this.getData();
+    const driverIsHere = getDriverPosition(stopsData, driverLocation);
+    const result = data.filter(
+      (el, i) =>
+        i <
+        stopsData.findIndex(e => e.name === driverLocation.activeLegID[0]) * 2 +
+          2
     );
-    const myX =
-      Math.round((result[0].x - result[1].x) * (1 - percent)) + result[1].x;
-    const myY =
-      Math.round((result[0].y - result[1].y) * (1 - percent)) + result[1].y;
-    return [myX * 6, myY * 6];
+    console.log('driverIsHere', driverIsHere);
+
+    return [...result, ...driverIsHere];
   };
 
   render() {
     const { stopsData, driverLocation } = this.props;
-
+    if (driverLocation.activeLegID === '' || stopsData.length === 0) {
+      return null;
+    }
     return (
       <section className="map">
         <Stage width={1000} height={1000} className="containerId">
           <Layer>
-            <Text
-              x={
-                driverLocation.activeLegID === '' || stopsData.length === 0
-                  ? null
-                  : this.getStopsInfo(stopsData, driverLocation)[0] + 10
-              }
-              y={
-                driverLocation.activeLegID === '' || stopsData.length === 0
-                  ? null
-                  : this.getStopsInfo(stopsData, driverLocation)[1]
-              }
-              text="Driver"
-              fontSize={20}
-              fill="Orange"
-            />
-            <Circle
-              x={
-                driverLocation.activeLegID === '' || stopsData.length === 0
-                  ? null
-                  : this.getStopsInfo(stopsData, driverLocation)[0]
-              }
-              y={
-                driverLocation.activeLegID === '' || stopsData.length === 0
-                  ? null
-                  : this.getStopsInfo(stopsData, driverLocation)[1]
-              }
-              fill="purple"
-              radius={7}
-              strokeWidth={3}
-            />
+            <Line points={this.getData()} stroke="red" />
           </Layer>
           <Layer>
-            <Line points={this.getData()} stroke="#000" />
+            <Line points={this.showCompletedLegs()} stroke="green" />
           </Layer>
           <Layer>
             {stopsData.map((el, index) => (
@@ -68,7 +44,7 @@ export default class Map extends Component {
                 key={index}
                 x={el.x * 6}
                 y={el.y * 6}
-                fill="salmon"
+                fill="purple"
                 radius={4}
                 strokeWidth={5}
               />
@@ -85,6 +61,22 @@ export default class Map extends Component {
                 fill="MediumSlateBlue"
               />
             ))}
+          </Layer>
+          <Layer>
+            <Text
+              x={getDriverPosition(stopsData, driverLocation)[0] + 10}
+              y={getDriverPosition(stopsData, driverLocation)[1]}
+              text="Driver"
+              fontSize={20}
+              fill="black"
+            />
+            <Circle
+              x={getDriverPosition(stopsData, driverLocation)[0]}
+              y={getDriverPosition(stopsData, driverLocation)[1]}
+              fill="purple"
+              radius={7}
+              strokeWidth={3}
+            />
           </Layer>
         </Stage>
       </section>

@@ -11,6 +11,19 @@ export const generateRandomId = (alphabet => {
   return () => randoIter('', 10);
 })('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
+export const getDriverPosition = (stopsData, driverLocation) => {
+  const { activeLegID, legProgress } = driverLocation;
+  const percent = legProgress / 100;
+  const result = stopsData.filter(
+    el => el.name === activeLegID[0] || el.name === activeLegID[1]
+  );
+  const myX =
+    Math.round((result[0].x - result[1].x) * (1 - percent)) + result[1].x;
+  const myY =
+    Math.round((result[0].y - result[1].y) * (1 - percent)) + result[1].y;
+  return [myX * 6, myY * 6];
+};
+
 export const trackingAPI = {
   getDataFromApi: async data => {
     try {

@@ -43,8 +43,11 @@ export default class App extends Component {
         <Header />
         <main className="wrapper">
           <StoreContext.Consumer>
-            {({ driverLocation }) => (
-              <DriverListPresenter driverLocation={driverLocation} />
+            {({ driverLocation, stopsData }) => (
+              <DriverListPresenter
+                stopsData={stopsData}
+                driverLocation={driverLocation}
+              />
             )}
           </StoreContext.Consumer>
           <StoreContext.Consumer>

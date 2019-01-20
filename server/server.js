@@ -20,7 +20,6 @@ wss.broadcast = (data, ws) => {
   });
 };
 
-
 wss.on('connection', ws => {
   console.log('Client connected');
   ws.on('close', () => {

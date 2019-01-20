@@ -1,19 +1,24 @@
 import React from 'react';
 import DriverListItem from './DriverListItem';
-import { generateRandomId } from '../../util/utils';
+import { generateRandomId, getDriverPosition } from '../../util/utils';
 
-const LegListPresenter = ({ driverLocation }) => {
-  if (
-    Object.keys(driverLocation).length === 0 &&
-    driverLocation.constructor === Object
-  ) {
+const LegListPresenter = ({ driverLocation, stopsData }) => {
+  if (driverLocation.activeLegID === '' || stopsData.length === 0) {
     return <h4>Loading Drivers Data...</h4>;
   }
   const renderDriver = (
-    <DriverListItem driver={driverLocation} key={generateRandomId()} />
+    <DriverListItem
+      driver={driverLocation}
+      cord={getDriverPosition(stopsData, driverLocation)}
+      key={generateRandomId()}
+    />
   );
   const renderBonusDriver = (
-    <DriverListItem driver={driverLocation} key={generateRandomId()} />
+    <DriverListItem
+      driver={driverLocation}
+      cord={getDriverPosition(stopsData, driverLocation)}
+      key={generateRandomId()}
+    />
   );
   return (
     <section className="drivers">

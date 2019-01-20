@@ -7,6 +7,15 @@ export default class Controls extends Component {
     legProgress: null,
   };
 
+  componentDidUpdate() {
+    const { legsData } = this.props;
+    const { legToUpdate } = this.state;
+    // select first value as default
+    if (legToUpdate === '' && legsData && legsData[0] && legsData[0].legID) {
+      this.onChangeLeg('legToUpdate', legsData[0].legID);
+    }
+  }
+
   generateOptions = name => (
     <option name={name} key={generateRandomId()} value={name}>
       {name}
@@ -65,7 +74,7 @@ export default class Controls extends Component {
                   } = e;
                   this.onChangeLeg('legProgress', value);
                 }}
-                value={legProgress}
+                value={legProgress || ''}
                 id="legProgress"
                 name="legProgress"
                 min="0"

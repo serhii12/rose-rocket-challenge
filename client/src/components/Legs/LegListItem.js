@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const LegListItem = ({ leg, completed, current }) => {
   const isCompleted = (
@@ -29,3 +30,16 @@ const LegListItem = ({ leg, completed, current }) => {
 };
 
 export default LegListItem;
+
+LegListItem.propTypes = {
+  leg: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string.isRequired,
+      PropTypes.string.isRequired,
+      PropTypes.number.isRequired,
+      PropTypes.string.isRequired,
+    ]).isRequired
+  ).isRequired,
+  completed: PropTypes.bool.isRequired,
+  current: PropTypes.bool.isRequired,
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const DriverListItem = ({ driver, cord }) => (
   <div className="drivers__info card">
@@ -17,3 +18,13 @@ const DriverListItem = ({ driver, cord }) => (
   </div>
 );
 export default DriverListItem;
+
+DriverListItem.propTypes = {
+  driver: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string.isRequired,
+      PropTypes.number.isRequired,
+    ]).isRequired
+  ),
+  cord: PropTypes.arrayOf(PropTypes.number).isRequired,
+};

@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Stage, Line, Circle, Layer, Text } from 'react-konva';
 import { getDriverPosition } from '../../util/utils';
 
+const OFF_SET = 6;
 export default class Map extends Component {
   getData = () => {
     const { stopsData } = this.props;
-    const newData = stopsData.map(el => [el.x * 6, el.y * 6]);
+    const newData = stopsData.map(el => [el.x * OFF_SET, el.y * OFF_SET]);
     return [].concat(...newData);
   };
 
@@ -19,7 +20,6 @@ export default class Map extends Component {
         stopsData.findIndex(e => e.name === driverLocation.activeLegID[0]) * 2 +
           2
     );
-    console.log('driverIsHere', driverIsHere);
 
     return [...result, ...driverIsHere];
   };
@@ -42,8 +42,8 @@ export default class Map extends Component {
             {stopsData.map((el, index) => (
               <Circle
                 key={index}
-                x={el.x * 6}
-                y={el.y * 6}
+                x={el.x * OFF_SET}
+                y={el.y * OFF_SET}
                 fill="purple"
                 radius={4}
                 strokeWidth={5}
@@ -54,8 +54,8 @@ export default class Map extends Component {
             {stopsData.map((el, index) => (
               <Text
                 key={index}
-                x={el.x * 6}
-                y={el.y * 6}
+                x={el.x * OFF_SET}
+                y={el.y * OFF_SET}
                 text={el.name}
                 fontSize={20}
                 fill="MediumSlateBlue"

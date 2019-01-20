@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import DriverListItem from './DriverListItem';
+
 import { generateRandomId, getDriverPosition } from '../../util/utils';
 
-const LegListPresenter = ({ driverLocation, stopsData }) => {
+const DriverListPresenter = ({ driverLocation, stopsData }) => {
   if (driverLocation.activeLegID === '' || stopsData.length === 0) {
     return <h4>Loading Drivers Data...</h4>;
   }
@@ -29,4 +31,14 @@ const LegListPresenter = ({ driverLocation, stopsData }) => {
   );
 };
 
-export default LegListPresenter;
+export default DriverListPresenter;
+
+DriverListPresenter.propTypes = {
+  stopsData: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      x: PropTypes.number.isRequired,
+      y: PropTypes.number.isRequired,
+    }).isRequired
+  ).isRequired,
+};

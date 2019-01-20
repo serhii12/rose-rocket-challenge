@@ -11,12 +11,17 @@ export class StoreProvider extends Component {
       activeLegID: '',
       legProgress: null,
     },
+    bonusDriverLocation: {
+      x: null,
+      y: null,
+    },
   };
 
   componentDidMount() {
     this.fetchLegs();
     this.fetchStops();
     this.fetchDriverLocation();
+    this.fetchBonusDriverLocation();
   }
 
   fetchLegs = async () => {
@@ -56,6 +61,23 @@ export class StoreProvider extends Component {
     }
   };
 
+  fetchBonusDriverLocation = async () => {
+    try {
+      const bonusDriverLocation = await trackingAPI.getDataFromApi(
+        'bonusdriver'
+      );
+      const { x, y } = bonusDriverLocation;
+      this.setState({
+        bonusDriverLocation: {
+          x,
+          y,
+        },
+      });
+    } catch (error) {
+      console.log('error fetchBonusDriverLocation', error);
+    }
+  };
+
   updateDriverLocation = async (legToUpdate, progress) => {
     try {
       trackingAPI.updateLocation(legToUpdate, progress);
@@ -74,6 +96,7 @@ export class StoreProvider extends Component {
           fetchStops: this.fetchStops,
           fetchDriverLocation: this.fetchDriverLocation,
           updateDriverLocation: this.updateDriverLocation,
+          fetchBonusDriverLocation: this.fetchBonusDriverLocation,
         }}
       >
         {children}

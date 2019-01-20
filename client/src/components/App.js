@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Header from './Reusable/Header';
+import PropTypes from 'prop-types';
+import Header from './Header/Header';
 import DriverListPresenter from './Driver/DriverListPresenter';
 import Controls from './ControlMenu/Controls.js';
 import LegListPresenter from './Legs/LegListPresenter';
@@ -15,8 +16,9 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    SOCKET.onmessage = msg => {
-      this.props.fetchDriverLocation();
+    SOCKET.onmessage = () => {
+      const { fetchDriverLocation } = this.props;
+      fetchDriverLocation();
     };
     this.setState({
       loading: false,
@@ -33,32 +35,30 @@ export default class App extends Component {
         <Header />
         <main className="wrapper">
           <StoreContext.Consumer>
-            {({ driverLocation, stopsData }) => (
-              <DriverListPresenter
-                stopsData={stopsData}
-                driverLocation={driverLocation}
-              />
-            )}
-          </StoreContext.Consumer>
-          <StoreContext.Consumer>
-            {({ legsData, updateDriverLocation }) => (
-              <Controls
-                updateDriverLocation={updateDriverLocation}
-                legsData={legsData}
-              />
-            )}
-          </StoreContext.Consumer>
-          <StoreContext.Consumer>
-            {({ legsData, driverLocation }) => (
-              <LegListPresenter
-                driverLocation={driverLocation}
-                legsData={legsData}
-              />
-            )}
-          </StoreContext.Consumer>
-          <StoreContext.Consumer>
-            {({ stopsData, driverLocation }) => (
-              <MapItem stopsData={stopsData} driverLocation={driverLocation} />
+            {({
+              driverLocation,
+              stopsData,
+              legsData,
+              updateDriverLocation,
+            }) => (
+              <>
+                <DriverListPresenter
+                  stopsData={stopsData}
+                  driverLocation={driverLocation}
+                />
+                <Controls
+                  updateDriverLocation={updateDriverLocation}
+                  legsData={legsData}
+                />
+                <LegListPresenter
+                  driverLocation={driverLocation}
+                  legsData={legsData}
+                />
+                <MapItem
+                  stopsData={stopsData}
+                  driverLocation={driverLocation}
+                />
+              </>
             )}
           </StoreContext.Consumer>
         </main>
@@ -66,3 +66,7 @@ export default class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  fetchDriverLocation: PropTypes.func.isRequired,
+};

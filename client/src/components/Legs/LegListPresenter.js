@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import LegListItem from './LegListItem';
 
 const LegListPresenter = ({ legsData, driverLocation }) => {
@@ -25,3 +26,14 @@ const LegListPresenter = ({ legsData, driverLocation }) => {
 };
 
 export default LegListPresenter;
+
+LegListPresenter.propTypes = {
+  legsData: PropTypes.arrayOf(
+    PropTypes.shape({
+      startStop: PropTypes.string.isRequired,
+      endStop: PropTypes.string.isRequired,
+      speedLimit: PropTypes.number.isRequired,
+      legID: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+};

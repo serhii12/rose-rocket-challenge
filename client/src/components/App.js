@@ -18,7 +18,7 @@ export default class App extends Component {
 
   componentDidMount() {
     SOCKET.onmessage = msg => {
-      console.log('MSG', JSON.parse(msg.data));
+      this.props.fetchDriverLocation();
     };
     this.setState({
       loading: false,
@@ -35,7 +35,6 @@ export default class App extends Component {
 
   render() {
     const { loading } = this.state;
-
     if (loading) {
       return null;
     }
@@ -45,14 +44,16 @@ export default class App extends Component {
         <main className="wrapper">
           <StoreContext.Consumer>
             {({ driverLocation }) => (
-              <DriverListPresenter
-                driverLocation={driverLocation}
-                updateDriverLocation={this.updateDriverLocation}
-              />
+              <DriverListPresenter driverLocation={driverLocation} />
             )}
           </StoreContext.Consumer>
           <StoreContext.Consumer>
-            {({ legsData }) => <Controls legsData={legsData} />}
+            {({ legsData }) => (
+              <Controls
+                updateDriverLocation={this.updateDriverLocation}
+                legsData={legsData}
+              />
+            )}
           </StoreContext.Consumer>
           <StoreContext.Consumer>
             {({ legsData, driverLocation }) => (
@@ -64,7 +65,7 @@ export default class App extends Component {
           </StoreContext.Consumer>
           <StoreContext.Consumer>
             {({ stopsData, driverLocation }) => (
-              <MapItem driverLocation={driverLocation} stopsData={stopsData} />
+              <MapItem stopsData={stopsData} driverLocation={driverLocation} />
             )}
           </StoreContext.Consumer>
         </main>

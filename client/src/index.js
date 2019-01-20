@@ -11,7 +11,9 @@ import {
 ReactDOM.render(
   <StoreProvider>
     <StoreContext.Consumer>
-      {({ legsData }) => <App legsData={legsData} />}
+      {({ fetchDriverLocation }) => (
+        <App fetchDriverLocation={fetchDriverLocation} />
+      )}
     </StoreContext.Consumer>
   </StoreProvider>,
   document.getElementById('root')

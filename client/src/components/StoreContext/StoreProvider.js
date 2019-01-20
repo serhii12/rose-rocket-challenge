@@ -50,6 +50,8 @@ export class StoreProvider extends Component {
       <StoreContext.Provider
         value={{
           ...this.state,
+          fetchLegs: this.fetchLegs,
+          fetchStops: this.fetchStops,
           fetchDriverLocation: this.fetchDriverLocation,
         }}
       >

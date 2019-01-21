@@ -1,4 +1,4 @@
-# Rose Rocket Assignment
+# Rose Rocket Challenge app
 
 - Primarily a client-side SPA (single-page app) built with ReactJS
 - Contains a form for changing driver location

@@ -26,7 +26,7 @@ router.put('/driver', (req, res) => {
   }
   driver.activeLegID = legToUpdate;
   driver.legProgress = progress;
-  const wss = req.app.get('wss')
+  const wss = req.app.get('wss');
   wss.broadcast(driver);
   res.json(driver);
 });

@@ -26,12 +26,12 @@ export default class App extends Component {
         <main className="wrapper">
           <StoreContext.Consumer>
             {({
+              bonusDriverLocation,
+              updateDriverLocation,
+              updateBonusDriver,
               driverLocation,
               stopsData,
               legsData,
-              updateDriverLocation,
-              bonusDriverLocation,
-              updateBonusDriver,
             }) => (
               <>
                 <DriverListPresenter

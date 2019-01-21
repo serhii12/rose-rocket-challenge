@@ -100,8 +100,6 @@ export class StoreProvider extends Component {
       <StoreContext.Provider
         value={{
           ...this.state,
-          fetchLegs: this.fetchLegs,
-          fetchStops: this.fetchStops,
           fetchDriverLocation: this.fetchDriverLocation,
           updateDriverLocation: this.updateDriverLocation,
           fetchBonusDriverLocation: this.fetchBonusDriverLocation,

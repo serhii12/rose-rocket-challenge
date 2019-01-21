@@ -29,9 +29,13 @@ cd rose-rocket-challenge
 
 <img src="https://github.com/serhii12/rose-rocket-challenge/blob/master/docs/app.png"/>
 
-#### GIF
+#### GIF Demo Driver
 
 !["Stop change"](https://github.com/serhii12/rose-rocket-challenge/blob/master/docs/demoGIF.gif?raw=true)
+
+#### GIF Demo Bonus Driver
+
+!["Stop change"](https://github.com/serhii12/rose-rocket-challenge/blob/master/docs/demoBonusDriverGIF.gif?raw=true)
 
 ### Dependencies
 

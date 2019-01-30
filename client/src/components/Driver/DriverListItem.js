@@ -11,7 +11,7 @@ const DriverListItem = ({ driver, cord }) => (
         <p>Active Leg: {driver.activeLegID}</p>
         <p>Leg Progress: {driver.legProgress}%</p>
         <p>
-          Coordinates: {cord[0] / 6}X | {cord[1] / 6}Y
+          Coordinates: {Math.round(cord[0] / 6)}X | {Math.round(cord[1] / 6)}Y
         </p>
       </div>
     </div>

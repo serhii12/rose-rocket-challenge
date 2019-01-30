@@ -1,3 +1,5 @@
+import { OFF_SET } from '../constant/mapMult';
+
 export const generateRandomId = (alphabet => {
   const alphabetLength = alphabet.length;
   const randoIter = (key, n) => {
@@ -21,7 +23,7 @@ export const getDriverPosition = (stopsData, driverLocation) => {
     Math.round((result[0].x - result[1].x) * (1 - percent)) + result[1].x;
   const myY =
     Math.round((result[0].y - result[1].y) * (1 - percent)) + result[1].y;
-  return [myX * 6, myY * 6];
+  return [myX * OFF_SET, myY * OFF_SET];
 };
 
 export const trackingAPI = {

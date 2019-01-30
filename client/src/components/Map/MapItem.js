@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Stage, Line, Circle, Layer, Text, Group } from 'react-konva';
 import { getDriverPosition } from '../../util/utils';
+import { OFF_SET } from '../../constant/mapMult';
 
-const OFF_SET = 6;
 export default class MapItem extends Component {
   getDataPoints = () => {
     const { stopsData } = this.props;
